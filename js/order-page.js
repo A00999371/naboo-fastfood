@@ -1,6 +1,6 @@
 $(document).ready(function(){
     console.log("MENU PAGE");
-    
+    var numItems = 1;
     //Variables
     var greens = document.getElementById("greens"),
         meats = document.getElementById("meats"),
@@ -62,22 +62,24 @@ $(document).ready(function(){
         counterDiv.className = "counterDiv";
         parentDiv.appendChild(counterDiv);
 
-        var Plus = document.createElement("img");
-        Plus.className = "Plus";
-        Plus.src = "/pics/plus.png";
-        counterDiv.appendChild(Plus);
+        var Minus = document.createElement("img");
+        Minus.classList.add("Minus");
+        Minus.id="Minus"+numItems;
+        Minus.src = "/pics/minus.png";
+        counterDiv.appendChild(Minus);
 
         var Counter = document.createElement("div");
         Counter.className = "Counter";
         Counter.Id = "counter";
         Counter.innerHTML = "0";
         counterDiv.appendChild(Counter);
-
-        var Minus = document.createElement("img");
-        Minus.className = "Minus";
-        Minus.src = "/pics/minus.png";
-        counterDiv.appendChild(Minus);
-
+        
+        var Plus = document.createElement("img");
+        Plus.classList.add("Plus");
+        Plus.id="Plus"+numItems;
+        Plus.src = "/pics/plus.png";
+        counterDiv.appendChild(Plus);
+        
         Plus.addEventListener("click", function(){
             var initialValue = parseInt(this.parentNode.childNodes[1].innerHTML);
             if(initialValue != maxPerItem){
@@ -99,6 +101,7 @@ $(document).ready(function(){
 
         var add2Cart = document.createElement("button");
         add2Cart.className = "add2Cart";
+        add2Cart.id="add2Cart"+numItems;
         add2Cart.innerHTML = "Add To Cart";
         counterDiv.appendChild(add2Cart);
         add2Cart.addEventListener("click",function(){
@@ -133,6 +136,7 @@ $(document).ready(function(){
                         purchaseItem.innerHTML = itemName + ": " + quantity + " @ " + cost + "IC each: " + (cost*quantity) + "IC";
                         var removeItem = document.createElement("button");
                         removeItem.innerHTML = "X";
+                        removeItem.className = "removeItem";
                         removeItem.addEventListener("click",function(){
                             this.parentNode.remove();
                             delete finalItems[itemName];
@@ -158,6 +162,7 @@ $(document).ready(function(){
                                 list.childNodes[i].innerHTML = itemName + ": " + quantity + " @ " + cost + "IC each: " + (cost*quantity) + "IC";
                                 var removeItem = document.createElement("button");
                                 removeItem.innerHTML = "X";
+                                removeItem.className = "removeItem";
                                 removeItem.addEventListener("click",function(){
                                     this.parentNode.remove();
                                     delete finalItems[itemName];
@@ -189,6 +194,7 @@ $(document).ready(function(){
                 }
             }
         })
+        numItems+=1;
     }
     
     // this function is to update the total cost of order
@@ -198,7 +204,7 @@ $(document).ready(function(){
         Object.keys(finalItems).forEach(function(key){
             total += itemPrices[key] * finalItems[key];
         })
-        document.getElementById("total").innerHTML = /*"Total Cost: " +*/ total;
+        document.getElementById("total").innerHTML = total+" IC";
     }
     
     //Storing info into each array
