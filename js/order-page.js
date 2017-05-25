@@ -290,7 +290,7 @@ $(document).ready(function(){
             }
         }
     });
-    var regExS = /^[a-z ,.'-]{2,25}$/i
+    var regExS = /^[a-z ]{2,25}$/i
     document.getElementById("checkout").addEventListener("click",function(){
         var name = document.getElementById("cusName");
         var totalCost = parseInt(document.getElementById("total").innerHTML);
@@ -311,6 +311,9 @@ $(document).ready(function(){
                     }
                     else if (resp.status == "Full"){
                         alert("TOO MANY ORDERS CURRENTLY PLEASE WAIT AND TRY AGAIN");
+                    }
+                    else if (resp.status=="badOrder"){
+                        alert("THIS ORDER IS INVALID");
                     }
                     else {
                         alert("error making order");
